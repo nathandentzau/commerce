@@ -79,16 +79,17 @@ class PaymentProcessTest extends UnitTestCase {
 
     $checkoutPane = $this->createMock(CheckoutPaneInterface::class);
     $checkoutPane
-      ->expects($this->once())
+      ->expects($is_zero ? $this->never() : $this->once())
       ->method('isVisible')
       ->willReturn($is_visible);
     $checkoutPane
-      ->expects($this->once())
+      ->expects($is_zero || !$is_visible ? $this->never() : $this->once())
       ->method('getStepId')
       ->willReturn($step_id);
 
+    $expectMethodCall = $is_zero || !$is_visible || $step_id === '_disabled';
     $this->checkoutFlow
-      ->expects($this->once())
+      ->expects($expectMethodCall ? $this->never() : $this->once())
       ->method('getPane')
       ->with('payment_information')
       ->willReturn($checkoutPane);
