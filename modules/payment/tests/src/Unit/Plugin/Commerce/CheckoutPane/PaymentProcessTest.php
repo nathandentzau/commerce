@@ -37,7 +37,7 @@ class PaymentProcessTest extends UnitTestCase {
    * 
    * @var Drupal\Core\Messenger\MessengerInterface
    */
-  protected $messengerInterface;
+  protected $messenger;
 
   /**
    * A commerce order.
@@ -56,7 +56,7 @@ class PaymentProcessTest extends UnitTestCase {
     $this->entityTypeManager = $this->createMock(
       EntityTypeManagerInterface::class
     );
-    $this->messengerInterface = $this->createMock(MessengerInterface::class);
+    $this->messenger = $this->createMock(MessengerInterface::class);
     $this->order = $this->createMock(OrderInterface::class);
   }
 
